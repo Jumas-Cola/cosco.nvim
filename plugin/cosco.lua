@@ -11,6 +11,11 @@
 local cosco = require("cosco")
 
 vim.api.nvim_create_user_command("CommaOrSemiColon", cosco.comma_or_semi_colon, {})
+vim.api.nvim_create_user_command("AutoCommaOrSemiColon", function()
+  if vim.g.auto_comma_or_semicolon >= 1 then
+    cosco.comma_or_semi_colon()
+  end
+end, {})
 
 if not vim.g.auto_comma_or_semicolon then
   vim.g.auto_comma_or_semicolon = 0
@@ -18,12 +23,6 @@ end
 
 if not vim.g.auto_comma_or_semicolon_events then
   vim.g.auto_comma_or_semicolon_events = { "InsertLeave" }
-end
-
-local function auto_comma_or_semicolon()
-  if vim.g.auto_comma_or_semicolon >= 1 then
-    cosco.comma_or_semi_colon()
-  end
 end
 
 for _, event in ipairs(vim.g.auto_comma_or_semicolon_events) do
