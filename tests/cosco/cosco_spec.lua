@@ -159,7 +159,6 @@ end)
 
 describe("Next line starting with `{`", function()
   it("Next line is `}`", function()
-    vim.api.nvim_create_buf(true, true)
     vim.api.nvim_buf_set_lines(0, 0, -1, false, {
       "function nextLineBrace()",
       "    {",
