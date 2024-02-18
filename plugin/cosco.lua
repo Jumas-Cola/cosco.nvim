@@ -27,7 +27,7 @@ local function auto_comma_or_semicolon()
 end
 
 for _, event in ipairs(vim.g.auto_comma_or_semicolon_events) do
-  vim.cmd(string.format("autocmd %s * CommaOrSemiColon", event))
+  vim.cmd(string.format("autocmd %s * lua auto_comma_or_semicolon()", event))
 end
 
 function AutoCommaOrSemiColonToggle()
