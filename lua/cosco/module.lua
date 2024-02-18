@@ -172,10 +172,6 @@ M.comma_or_semi_colon = function(config)
 
   vim.b.original_cursor_position = vim.api.nvim_win_get_cursor(0)
 
-  if vim.b.original_cursor_position == nil then
-    return
-  end
-
   local line, _ = table.unpack(vim.b.original_cursor_position)
 
   vim.b.original_line_num = line
