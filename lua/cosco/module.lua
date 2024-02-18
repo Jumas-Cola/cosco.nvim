@@ -205,7 +205,9 @@ M.comma_or_semi_colon = function(config)
   end
 
   if vim.b.prev_line_last_char == "," then
-    if vim.b.next_line_last_char == "," then
+    if string.match(vim.b.next_line_last_char, "^[)%]}]$") then
+      M.remove_comma_or_semi_colon()
+    elseif vim.b.next_line_last_char == "," then
       M.make_it_a_comma()
     elseif vim.b.next_line_indentation < vim.b.current_line_indentation then
       M.make_it_a_semi_colon()
@@ -232,7 +234,7 @@ M.comma_or_semi_colon = function(config)
   elseif vim.b.prev_line_last_char == "[" then
     if vim.b.next_line_first_char == "]" then
       M.remove_comma_or_semi_colon()
-    elseif string.match(vim.b.current_line_last_char, "[}\\])]") then
+    elseif string.match(vim.b.current_line_last_char, "^[)%]}]$") then
       M.make_it_a_semi_colon()
     else
       M.make_it_a_comma()
