@@ -170,10 +170,15 @@ M.comma_or_semi_colon = function(config)
 
   vim.b.was_extension_executed = false
 
-  local l, c = table.unpack(vim.api.nvim_win_get_cursor(0))
-
-  vim.b.original_line_num = l
   vim.b.original_cursor_position = vim.api.nvim_win_get_cursor(0)
+
+  if not vim.b.original_cursor_position then
+    return
+  end
+
+  local line, _ = table.unpack(vim.b.original_cursor_position)
+
+  vim.b.original_line_num = line
 
   vim.b.current_line = vim.api.nvim_get_current_line()
   vim.b.current_line_last_char = string.match(vim.b.current_line, ".$")
