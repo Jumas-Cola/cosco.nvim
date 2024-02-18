@@ -1,6 +1,9 @@
 ---@class CustomModule
 local M = {}
 
+-- Fof compatibility
+table.unpack = table.unpack or unpack
+
 -- =================
 -- Helper functions:
 -- =================
