@@ -5,8 +5,7 @@ local M = {}
 -- Helper functions:
 -- =================
 
-M.strip =
-    function(string) return string.gsub(string, "^s*(.{-})s*$", "\1", 1) end
+M.strip = function(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 
 M.get_next_non_blank_line_num = function(line_num)
     local total_lines = vim.api.nvim_buf_line_count(0)
