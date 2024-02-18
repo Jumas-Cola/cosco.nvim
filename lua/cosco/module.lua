@@ -172,7 +172,7 @@ M.comma_or_semi_colon = function(config)
 
   vim.b.original_cursor_position = vim.api.nvim_win_get_cursor(0)
 
-  if not vim.b.original_cursor_position then
+  if vim.b.original_cursor_position == nil then
     return
   end
 
