@@ -199,6 +199,7 @@ M.comma_or_semi_colon = function(config)
   vim.b.next_line_first_char = string.match(M.strip(vim.b.next_line), "^.")
 
   if M.has_unactionable_lines(config) then
+    vim.cmd("noh")
     return
   end
 
@@ -206,6 +207,7 @@ M.comma_or_semi_colon = function(config)
 
   if vim.b.was_extension_executed then
     vim.api.nvim_win_set_cursor(0, vim.b.original_cursor_position)
+    vim.cmd("noh")
     return
   end
 
