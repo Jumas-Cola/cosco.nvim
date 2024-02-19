@@ -110,19 +110,20 @@ end
 -- =====================
 
 M.filetype_overrides = function()
+  if vim.bo.filetype == "" then
+    return
+  end
+
   -- Объединяем имя функции на основе текущего типа файла
-  local funcName = "filetypes#" .. vim.bo.filetype .. "#parse"
+  local status, fileTypeModule = pcall(require, "cosco.filetypes." .. vim.bo.filetype)
+  if status then
+    -- Выполнение Vim команды с использованием pcall для перехвата ошибок
+    local ok, result = pcall(fileTypeModule.parse)
 
-  -- Выполнение Vim команды с использованием pcall для перехвата ошибок
-  local ok, result = pcall(function()
-    -- Используйте vim.api.nvim_exec для выполнения Vim команды, например, вызова функции
-    -- true в конце указывает, что не нужно выводить результат выполнения
-    vim.api.nvim_exec2("call " .. funcName .. "()", true)
-  end)
-
-  -- Проверяем, была ли ошибка при выполнении команды
-  if not ok then
-    -- No filetypes for the current buffer filetype
+    -- Проверяем, была ли ошибка при выполнении команды
+    -- if not ok then
+    --   print("Error: " .. result)
+    -- end
   end
 end
 
