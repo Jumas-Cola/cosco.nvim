@@ -12,7 +12,6 @@ M.parse = function()
     if vim.b.next_line_first_char == ")" then
       cosco.remove_comma_or_semi_colon()
     end
-    vim.b.was_extension_executed = false
   else
     vim.b.was_extension_executed = false
   end
