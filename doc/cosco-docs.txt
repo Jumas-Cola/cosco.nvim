@@ -1,4 +1,4 @@
-*cosco-docs.txt*       For Neovim >= 0.8.0       Last change: 2024 February 19
+*cosco-docs.txt*       For Neovim >= 0.8.0       Last change: 2024 February 20
 
 ==============================================================================
 Table of Contents                               *cosco-docs-table-of-contents*
