@@ -3,12 +3,7 @@ local module = require("cosco.module")
 
 ---@class Config
 ---@field opt string Your config option
-local config = {
-  cosco_ignore_comment_lines = vim.g.cosco_ignore_comment_lines or 0,
-  cosco_ignore_ft_pattern = vim.g.cosco_ignore_ft_pattern or {},
-  cosco_filetype_whitelist = vim.g.cosco_filetype_whitelist or nil,
-  cosco_filetype_blacklist = vim.g.cosco_filetype_blacklist or nil,
-}
+local config = {}
 
 ---@class MyModule
 local M = {}

@@ -45,9 +45,9 @@ M.get_line_by_num = function(line_num)
   return vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
 end
 
-M.has_unactionable_lines = function(config)
+M.has_unactionable_lines = function()
   -- Ignores comment lines, if global option is configured
-  if config.cosco_ignore_comment_lines == 1 then
+  if vim.g.cosco_ignore_comment_lines == 1 then
     -- Получаем текущую позицию курсора
     local line_num, col_num = table.unpack(vim.api.nvim_win_get_cursor(0))
     -- Получаем ID группы синтаксиса для текущей позиции
@@ -74,27 +74,27 @@ M.has_unactionable_lines = function(config)
   -- Ignores custom regex patterns given a file type.
   local cur_ft = vim.bo.filetype
   -- Проверка наличия ключа для текущего типа файла в глобальной переменной
-  if config.cosco_ignore_ft_pattern and config.cosco_ignore_ft_pattern[cur_ft] then
+  if vim.g.cosco_ignore_ft_pattern and vim.g.cosco_ignore_ft_pattern[cur_ft] then
     -- Получение текущей строки и проверка соответствия регулярному выражению
     local currentLine = vim.api.nvim_get_current_line()
-    if currentLine:match(config.cosco_ignore_ft_pattern[cur_ft]) then
+    if currentLine:match(vim.g.cosco_ignore_ft_pattern[cur_ft]) then
       return true
     end
   end
 end
 
-M.ignore_current_filetype = function(config)
+M.ignore_current_filetype = function()
   local filetypes = vim.split(vim.bo.filetype, "\\.", true)
 
-  if config.cosco_filetype_whitelist then
-    for _, i in ipairs(config.cosco_filetype_whitelist) do
+  if vim.g.cosco_filetype_whitelist then
+    for _, i in ipairs(vim.g.cosco_filetype_whitelist) do
       if vim.tbl_contains(filetypes, i) then
         return false
       end
     end
     return true
-  elseif config.cosco_filetype_blacklist then
-    for _, i in ipairs(config.cosco_filetype_blacklist) do
+  elseif vim.g.cosco_filetype_blacklist then
+    for _, i in ipairs(vim.g.cosco_filetype_blacklist) do
       if vim.tbl_contains(filetypes, i) then
         return true
       end
@@ -168,7 +168,7 @@ M.comma_or_semi_colon = function(config)
   end
 
   -- Dont run if current filetype has been disabled:
-  if M.ignore_current_filetype(config) then
+  if M.ignore_current_filetype() then
     return
   end
 
@@ -198,7 +198,7 @@ M.comma_or_semi_colon = function(config)
   vim.b.next_line_last_char = string.match(vim.b.next_line, ".$")
   vim.b.next_line_first_char = string.match(M.strip(vim.b.next_line), "^.")
 
-  if M.has_unactionable_lines(config) then
+  if M.has_unactionable_lines() then
     vim.cmd("noh")
     return
   end
