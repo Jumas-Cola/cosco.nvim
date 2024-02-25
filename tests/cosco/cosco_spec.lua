@@ -36,15 +36,15 @@ describe("helpers", function()
 
     assert(nil == plugin.get_prev_non_blank_line_num(5))
   end)
-end)
 
-it("get_line_by_num helper func", function()
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, { "one", "", "", "", "five" })
+  it("get_line_by_num helper func", function()
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "one", "", "", "", "five" })
 
-  vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
 
-  assert("one" == plugin.get_line_by_num(1))
-  assert("five" == plugin.get_line_by_num(5))
+    assert("one" == plugin.get_line_by_num(1))
+    assert("five" == plugin.get_line_by_num(5))
+  end)
 end)
 
 describe("Previous line ending with `,`", function()
