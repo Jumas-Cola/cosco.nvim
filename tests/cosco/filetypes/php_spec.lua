@@ -94,3 +94,24 @@ describe("Previous line ending with `[`", function()
     teardown()
   end)
 end)
+
+describe("Previous line function ending with `{`", function()
+  it("Next line ending with `%w+];`", function()
+    setup()
+
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, {
+      "function getSmth($param): string",
+      "{",
+      "    $smth = self::smth()",
+      "    return $smth[$param];",
+      "}",
+    })
+
+    vim.api.nvim_win_set_cursor(0, { 3, 0 })
+
+    plugin.comma_or_semi_colon({})
+    assert("    $smth = self::smth();" == vim.api.nvim_get_current_line())
+
+    teardown()
+  end)
+end)
