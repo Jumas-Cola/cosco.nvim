@@ -14,9 +14,9 @@ M.parse = function()
     -- do nothing: it's an "end"
   elseif vim.b.current_line_last_char == ";" then
     -- toggle semicolon
-    vim.api.nvim_exec2("s/;$//")
+    vim.api.nvim_exec2("s/;$//", {})
   else
-    vim.api.nvim_exec2("s/$/;/")
+    vim.api.nvim_exec2("s/$/;/", {})
   end
 end
 
